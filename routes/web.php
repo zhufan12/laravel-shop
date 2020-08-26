@@ -12,9 +12,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['middleware'=>['auth','verified']],function(){
+    Route::get('user_addresses','UserAddressController@index')->name('user_addresses.index');
 
-Route::get('/', 'PagesController@root')->name('root');
+});
 
-Auth::routes();
+Route::get('/', 'PagesController@root')->name('root')->middleware('verified');
+
+Auth::routes(['verify'=>true]);
 
 
